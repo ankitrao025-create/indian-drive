@@ -1,0 +1,25 @@
+{
+  "overview": "A free-roam 3D driving sandbox featuring authentic Indian vehicles — hatchbacks, motorcycles, and auto-rickshaws. Customize your ride with paint, performance upgrades, and cosmetics, then hit the open road, complete driving challenges, and climb the leaderboard.",
+  "features": [
+    "Browse 12+ Indian vehicles across cars, motorcycles, and auto-rickshaws",
+    "Full customization: paint, decals, engine tuning, suspension, brakes, and neon underglow",
+    "Real-time 3D vehicle preview while applying modifications",
+    "Open-world free-roam map with city streets and rural roads",
+    "Challenge system with speed runs, parking, slalom, and off-road missions",
+    "Earn in-game Rupees from driving and challenges to unlock new vehicles and parts",
+    "Global leaderboard with daily rankings",
+    "Mobile-responsive with touch controls and virtual joystick"
+  ],
+  "category": "games",
+  "tags": [
+    "game",
+    "driving",
+    "indian-vehicles",
+    "3d",
+    "customization",
+    "sandbox",
+    "three-js",
+    "physics"
+  ],
+  "last_updated": "2026-04-13T03:48:08.523Z"
+}

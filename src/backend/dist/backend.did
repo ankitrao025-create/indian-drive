@@ -1,0 +1,132 @@
+type VisualMod = 
+ record {
+   bodyKit: text;
+   rims: text;
+   underglowColor: opt text;
+ };
+type VehicleType = 
+ variant {
+   car;
+   motorcycle;
+   rickshaw;
+ };
+type VehicleId = nat;
+type Vehicle = 
+ record {
+   baseStats: BaseStats;
+   brand: text;
+   id: VehicleId;
+   name: text;
+   price: nat;
+   vehicleType: VehicleType;
+ };
+type Timestamp = int;
+type PlayerProfilePublic = 
+ record {
+   currencyBalance: nat;
+   id: PlayerId;
+   level: nat;
+   name: text;
+   totalPoints: nat;
+   vehicleIds: vec VehicleId;
+ };
+type PlayerId = principal;
+type PerformanceMod = 
+ record {
+   brakesLevel: nat;
+   engineLevel: nat;
+   nitro: bool;
+   suspensionLevel: nat;
+ };
+type PaintMod = 
+ record {
+   color: text;
+   finish: text;
+ };
+type OwnedVehicle = 
+ record {
+   modifications: Modifications;
+   vehicleId: VehicleId;
+ };
+type Modifications = 
+ record {
+   paint: opt PaintMod;
+   performance: opt PerformanceMod;
+   visual: opt VisualMod;
+ };
+type Medal = 
+ variant {
+   bronze;
+   gold;
+   silver;
+ };
+type LeaderboardEntry = 
+ record {
+   challengesCompleted: nat;
+   level: nat;
+   playerId: PlayerId;
+   playerName: text;
+   rank: nat;
+   totalPoints: nat;
+ };
+type ChallengeType = 
+ variant {
+   circuit;
+   delivery;
+   drag;
+   drift;
+ };
+type ChallengeRewards = 
+ record {
+   currency: nat;
+   points: nat;
+ };
+type ChallengeId = nat;
+type ChallengeDifficulty = 
+ variant {
+   easy;
+   expert;
+   hard;
+   medium;
+ };
+type ChallengeCompletion = 
+ record {
+   challengeId: ChallengeId;
+   completedAt: Timestamp;
+   medal: Medal;
+   playerId: PlayerId;
+   pointsEarned: nat;
+   timeMs: nat;
+ };
+type Challenge = 
+ record {
+   challengeType: ChallengeType;
+   difficulty: ChallengeDifficulty;
+   id: ChallengeId;
+   name: text;
+   rewards: ChallengeRewards;
+ };
+type BaseStats = 
+ record {
+   acceleration: nat;
+   braking: nat;
+   handling: nat;
+   speed: nat;
+ };
+service : {
+  applyMods: (vehicleId: nat, mods: Modifications) -> (bool);
+  getChallenge: (id: nat) -> (opt Challenge) query;
+  getEffectiveStats: (id: nat, mods: Modifications) -> (opt BaseStats) query;
+  getLeaderboard: (topN: nat) -> (vec LeaderboardEntry) query;
+  getMyCompletions: () -> (vec ChallengeCompletion) query;
+  getMyGarage: () -> (vec OwnedVehicle) query;
+  getMyProfile: () -> (opt PlayerProfilePublic) query;
+  getProfile: (playerId: principal) -> (opt PlayerProfilePublic) query;
+  getVehicle: (id: nat) -> (opt Vehicle) query;
+  listChallenges: () -> (vec Challenge) query;
+  listVehicles: () -> (vec Vehicle) query;
+  purchaseVehicle: (vehicleId: nat) -> (bool);
+  registerPlayer: (name: text) -> (PlayerProfilePublic);
+  submitChallengeResult: (challengeId: nat, timeMs: nat, medal: Medal) ->
+   (ChallengeCompletion);
+}

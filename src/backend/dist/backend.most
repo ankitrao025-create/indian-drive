@@ -1,0 +1,111 @@
+// Version: 1.0.0
+type BaseStats__607842576 =
+  {acceleration : Nat; braking : Nat; handling : Nat; speed : Nat};
+type ChallengeCompletion__352250955 =
+  {
+    challengeId : ChallengeId__43194396;
+    completedAt : Timestamp__936702457;
+    medal : Medal__45797775;
+    playerId : PlayerId__723053693;
+    pointsEarned : Nat;
+    timeMs : Nat
+  };
+type ChallengeDifficulty__1028712869 = {#easy; #expert; #hard; #medium};
+type ChallengeId__120246472 = Nat;
+type ChallengeId__43194396 = ChallengeId__120246472;
+type ChallengeRewards__73597941 = {currency : Nat; points : Nat};
+type ChallengeType__33058408 = {#circuit; #delivery; #drag; #drift};
+type Challenge__908504453 =
+  {
+    challengeType : ChallengeType__33058408;
+    difficulty : ChallengeDifficulty__1028712869;
+    id : ChallengeId__43194396;
+    name : Text;
+    rewards : ChallengeRewards__73597941
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type GarageEntry__662946213 =
+  {
+    var ownedVehicles : [OwnedVehicle__891607320];
+    playerId : PlayerId__650251530
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Medal__45797775 = {#bronze; #gold; #silver};
+type Modifications__546485575 =
+  {
+    paint : ?PaintMod__495569391;
+    performance : ?PerformanceMod__210606175;
+    visual : ?VisualMod__61175986
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type OwnedVehicle__891607320 =
+  {
+    modifications : Modifications__546485575;
+    vehicleId : VehicleId__836043066
+  };
+type PaintMod__495569391 = {color : Text; finish : Text};
+type PerformanceMod__210606175 =
+  {brakesLevel : Nat; engineLevel : Nat; nitro : Bool; suspensionLevel : Nat};
+type PlayerId__52807076 = Principal;
+type PlayerId__650251530 = PlayerId__52807076;
+type PlayerId__723053693 = PlayerId__52807076;
+type PlayerProfile__995107185 =
+  {
+    var currencyBalance : Nat;
+    id : PlayerId__650251530;
+    var level : Nat;
+    name : Text;
+    var totalPoints : Nat;
+    var vehicleIds : [VehicleId__122107470]
+  };
+type Timestamp__301639476 = Int;
+type Timestamp__936702457 = Timestamp__301639476;
+type VehicleId__122107470 = VehicleId__963797663;
+type VehicleId__836043066 = VehicleId__963797663;
+type VehicleId__963797663 = Nat;
+type VehicleType__173044994 = {#car; #motorcycle; #rickshaw};
+type Vehicle__553412953 =
+  {
+    baseStats : BaseStats__607842576;
+    brand : Text;
+    id : VehicleId__836043066;
+    name : Text;
+    price : Nat;
+    vehicleType : VehicleType__173044994
+  };
+type VisualMod__61175986 =
+  {bodyKit : Text; rims : Text; underglowColor : ?Text};
+actor {
+  stable challenges :
+    {
+      var root : Node__46230540<Nat, Challenge__908504453>;
+      var size : Nat__490723111
+    };
+  stable completions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ChallengeCompletion__352250955]];
+      var elementIndex : Nat__490723111
+    };
+  stable garages :
+    {
+      var root : Node__46230540<Principal, GarageEntry__662946213>;
+      var size : Nat__490723111
+    };
+  stable profiles :
+    {
+      var root : Node__46230540<Principal, PlayerProfile__995107185>;
+      var size : Nat__490723111
+    };
+  stable vehicles :
+    {
+      var root : Node__46230540<Nat, Vehicle__553412953>;
+      var size : Nat__490723111
+    }
+};
